@@ -68,43 +68,74 @@
     </style>
     <script>
         function loadDropdown(checkboxId, dropdownId) {
-            const checkbox = document.getElementById(checkboxId);
-            if (checkbox.checked) {
-                fetch(`/api/dropdowns?checkbox=${checkbox.value}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        const dropdown = document.getElementById(dropdownId);
-                        dropdown.innerHTML = data.map(val => `<option value="${val}">${val}</option>`).join('');
-                    });
-            } else {
-                document.getElementById(dropdownId).innerHTML = '';
+                const checkbox = document.getElementById(checkboxId);
+                const dropdown = document.getElementById(dropdownId);
+
+                if (checkbox.checked) {
+                    // Create a data object to send
+                    const data = {
+                        dev: document.getElementById('dev').checked,
+                        qa: document.getElementById('qa').checked,
+                        prod: document.getElementById('pod').checked
+                    };
+
+                    fetch('/api/dropdowns', {
+                        method: 'POST', // Use POST to send data
+                        headers: {
+                            'Content-Type': 'application/json' // Important: Tell the server you're sending JSON
+                        },
+                        body: JSON.stringify(data) // Convert the data object to JSON
+                    })
+                        .then(response => response.json())
+                        .then(options => { // Renamed 'data' to 'options' for clarity
+                            dropdown.innerHTML = '<option value="">--Select--</option>';
+                            options.forEach(optionValue => {
+                                const option = document.createElement('option');
+                                option.value = optionValue;
+                                option.text = optionValue;
+                                dropdown.add(option);
+                            });
+                        })
+                        .catch(error => {
+                            console.error("Error loading dropdown:", error);
+                            dropdown.innerHTML = '<option value="">Error loading options</option>';
+                        });
+                } else {
+                    dropdown.innerHTML = '<option value="">--Select--</option>';
+                }
             }
-        }
     </script>
 </head>
 <body>
 
-<div class="container">  <h1>Dynamic Dropdowns with PDF Generation</h1>
-    <form action="/generate-pdf" method="post">
+<div class="container">
+    <h1>Dynamic Dropdowns with PDF Generation</h1>
+    <form action="/generate-pdf" method="post" th:object="${reportRequest}">
+<!--        <div class="input-group">-->
+<!--            <label><input type="checkbox" id="dev" th:field="*{dev}" value="Dev" onchange="loadDropdown('dev', 'devServer')"> Dev Server</label>-->
+<!--            <select id="devServer" th:field="*{devServer}">  <option value="">&#45;&#45;Select&#45;&#45;</option>-->
+<!--            </select>-->
+<!--        </div>-->
+
         <div class="input-group">
-            <label><input type="checkbox" id="dev" value="Dev" onchange="loadDropdown('dev', 'devServer')"> Dev Server</label>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <label for="devServer"></label><select id="devServer" name="dropdown1"></select>
+            <label><input type="checkbox" id="dev" th:field="*{dev}" value="Dev" onchange="loadDropdown('dev', 'devServer')"> Dev Server</label>
+            <select id="devServer" th:field="*{devServer}">
+                <option value="">--Select--</option>
+            </select>
         </div>
         <div class="input-group">
-            <label><input type="checkbox" id="qa" value="QA" onchange="loadDropdown('qa', 'qaServer')"> QA server</label>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <label for="qaServer"></label><select id="qaServer" name="dropdown2"></select>
+            <label><input type="checkbox" id="qa" th:field="*{qa}" value="QA" onchange="loadDropdown('qa', 'qaServer')"> QA server</label>
+            <select id="qaServer" th:field="*{qaServer}">  <option value="">--Select--</option>
+            </select>
         </div>
         <div class="input-group">
-            <label><input type="checkbox" id="pod" value="Prod" onchange="loadDropdown('pod', 'podServer')"> Prod Server</label>
-            &nbsp;&nbsp;&nbsp;
-            <label for="podServer"></label><select id="podServer" name="dropdown3"></select>
+            <label><input type="checkbox" id="pod" th:field="*{prod}" value="Prod" onchange="loadDropdown('pod', 'podServer')"> Prod Server</label>
+            <select id="podServer" th:field="*{prodServer}">  <option value="">--Select--</option>
+            </select>
         </div>
         <br><br><br>
         <button type="submit">Generate Report</button>
     </form>
 </div>
-
 </body>
 </html>

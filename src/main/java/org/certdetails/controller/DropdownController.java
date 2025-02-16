@@ -1,29 +1,33 @@
 package org.certdetails.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.certdetails.model.DropdownRequest;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
 public class DropdownController {
 
-    @GetMapping("/dropdowns")
-    public List<String> getDropdownValues(@RequestParam String checkbox) {
-        // Mock data - in real scenario, fetch from database
-        switch (checkbox) {
-            case "Dev":
-                return Arrays.asList("Option 1-1", "Option 1-2", "Option 1-3");
-            case "QA":
-                return Arrays.asList("Option 2-1", "Option 2-2", "Option 2-3");
-            case "Prod":
-                return Arrays.asList("Option 3-1", "Option 3-2", "Option 3-3");
+    @PostMapping("/dropdowns")
+    @ResponseBody
+    public List<String> getDropdownOptions(@RequestBody DropdownRequest dropdownRequest) { // Use @RequestBody
+        List<String> options = new ArrayList<>();
+
+        if (dropdownRequest.isDev()) {
+            options.add("Dev Server 1");
+            options.add("Dev Server 2");
         }
-        return Collections.emptyList();
+        if (dropdownRequest.isQa()) {
+            options.add("QA Server 1");
+            options.add("QA Server 2");
+        }
+        if (dropdownRequest.isProd()) {
+            options.add("Prod Server 1");
+            options.add("Prod Server 2");
+        }
+        return options;
     }
+
 }
