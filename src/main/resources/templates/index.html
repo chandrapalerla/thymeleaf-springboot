@@ -87,19 +87,19 @@
 <div class="container">  <h1>Dynamic Dropdowns with PDF Generation</h1>
     <form action="/generate-pdf" method="post">
         <div class="input-group">
-            <label><input type="checkbox" id="cb1" value="Dev" onchange="loadDropdown('cb1', 'dd1')"> Dev Server</label>
+            <label><input type="checkbox" id="dev" value="Dev" onchange="loadDropdown('dev', 'devServer')"> Dev Server</label>
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <label for="dd1"></label><select id="dd1" name="dropdown1"></select>
+            <label for="devServer"></label><select id="devServer" name="dropdown1"></select>
         </div>
         <div class="input-group">
-            <label><input type="checkbox" id="cb2" value="QA" onchange="loadDropdown('cb2', 'dd2')"> QA server</label>
+            <label><input type="checkbox" id="qa" value="QA" onchange="loadDropdown('qa', 'qaServer')"> QA server</label>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <label for="dd2"></label><select id="dd2" name="dropdown2"></select>
+            <label for="qaServer"></label><select id="qaServer" name="dropdown2"></select>
         </div>
         <div class="input-group">
-            <label><input type="checkbox" id="cb3" value="Prod" onchange="loadDropdown('cb3', 'dd3')"> Prod Server</label>
+            <label><input type="checkbox" id="pod" value="Prod" onchange="loadDropdown('pod', 'podServer')"> Prod Server</label>
             &nbsp;&nbsp;&nbsp;
-            <label for="dd3"></label><select id="dd3" name="dropdown3"></select>
+            <label for="podServer"></label><select id="podServer" name="dropdown3"></select>
         </div>
         <br><br><br>
         <button type="submit">Generate Report</button>
