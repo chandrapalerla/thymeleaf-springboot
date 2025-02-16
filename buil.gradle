@@ -1,0 +1,35 @@
+//// build.gradle
+//plugins {
+//    id 'java'
+//    id 'org.springframework.boot' version '2.7.14' // Java 8 compatible Spring Boot version
+//    id 'io.spring.dependency-management' version '1.1.4'
+//}
+//jar {
+//    enabled = true
+//    archiveBaseName = 'certification-details'
+//    archiveVersion = '0.0.1-SNAPSHOT'
+//}
+//java {
+//    sourceCompatibility = JavaVersion.VERSION_1_8
+//    targetCompatibility = JavaVersion.VERSION_1_8
+//}
+//
+//group = 'com.certdetails'
+//version = '0.0.1-SNAPSHOT'
+//
+//dependencies {
+//    implementation 'org.springframework.boot:spring-boot-starter-web'
+//    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+//    implementation 'com.itextpdf:itext7-core:7.1.5'
+//    //implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+//   // runtimeOnly 'com.oracle.database.jdbc:ojdbc8'
+//    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+//}
+//
+//task wrapper(type: Wrapper) {
+//    gradleVersion = '7.6.4'
+//}
+//
+//test {
+//    useJUnitPlatform()
+//}
