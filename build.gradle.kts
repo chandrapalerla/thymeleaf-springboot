@@ -21,6 +21,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     implementation ("com.itextpdf:itextpdf:5.5.13.3")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    annotationProcessor("org.projectlombok:lombok:1.18.28");
+    compileOnly("org.projectlombok:lombok:1.18.28");
 }
 tasks.withType<Test> {
     useJUnitPlatform()
